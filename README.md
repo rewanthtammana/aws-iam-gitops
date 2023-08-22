@@ -17,8 +17,8 @@ export TF_VAR_GITHUB_TOKEN=
 export TF_VAR_GITHUB_REPO=testaws
 export TF_VAR_GITHUB_USERNAME=rewanthtammana
 export TF_VAR_ECR_REPO_NAME=aws-iam-gitops
+export TF_VAR_RANDOM_SUFFIX=30
 
-export TF_VAR_RANDOM_SUFFIX=22
 export TF_VAR_ECR_REPO_TAG=v${TF_VAR_RANDOM_SUFFIX}
 export TF_VAR_AWS_PAGER=
 export TF_VAR_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)

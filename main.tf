@@ -147,7 +147,8 @@ resource "aws_iam_policy" "lambda_policy" {
         Action = [
           "iam:ListPolicies",
           "iam:ListRoles",
-          "organizations:ListPolicies"
+          "organizations:ListPolicies",
+          "organizations:DescribePolicy"
         ],
         Resource = "*"
       },
@@ -172,6 +173,12 @@ resource "aws_lambda_function" "lambda_function" {
   image_uri     = "${local.account_id}.dkr.ecr.${local.region}.amazonaws.com/${local.ecr_repo_name}:${local.ecr_repo_tag}"
   architectures = ["arm64"]
   timeout       = local.lambda_timeout
+}
+
+# New CloudWatch Log Group resource block
+resource "aws_cloudwatch_log_group" "lambda_log_group" {
+  name              = "/aws/lambda/${aws_lambda_function.lambda_function.function_name}"
+  retention_in_days = 7
 }
 
 # Create S3 bucket for CloudTrail

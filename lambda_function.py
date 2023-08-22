@@ -1,7 +1,20 @@
 import json
 import boto3
 import os
-import subprocess
+from random import randint, randrange
+
+def prettify_json(obj):
+    if isinstance(obj, dict):
+        for key, value in obj.items():
+            if isinstance(value, str):
+                try:
+                    value = json.loads(value)
+                except json.JSONDecodeError:
+                    pass
+            obj[key] = prettify_json(value)
+    elif isinstance(obj, list):
+        obj = [prettify_json(value) for value in obj]
+    return obj
 
 def handler(event, context):
 
@@ -14,13 +27,16 @@ def handler(event, context):
     github_token = "GITHUB_TOKEN"
     github_repo_name = "GITHUB_REPO"
 
+    random_string = str(randrange(100, 100000))
+    local_repo = f"/tmp/{random_string}"
+
     # Clone the repo
     repo_url = f"https://{github_username}:{github_token}@github.com/{github_username}/{github_repo_name}.git"
-    clone_command = f"git clone --depth 1 {repo_url} cloned_repo"
+    clone_command = f"git clone --depth 1 {repo_url} {local_repo}"
     os.system(clone_command)
 
     # Change directory to the cloned repo
-    os.chdir("cloned_repo")
+    os.chdir(f"{local_repo}")
 
     # Set Git user.name and user.email
     os.system(f"git config user.name abcd")
@@ -47,21 +63,26 @@ def handler(event, context):
             paginator = orgs.get_paginator('list_policies')
             for page in paginator.paginate(Filter='SERVICE_CONTROL_POLICY'):
                 items.extend(page['Policies'])
+            for item in items:
+                policy_detail = orgs.describe_policy(PolicyId=item['Id'])
+                item.update(policy_detail['Policy'])
 
         for item in items:
             file_name = f"{item['RoleName']}.json" if category == "roles" else f"{item['PolicyName']}.json" if category == "policies" else f"{item['Id']}.json"
             with open(f"{category}/{file_name}", "w") as f:
-                json.dump(item, f, default=str, indent=4)
+                json.dump(prettify_json(item), f, default=str, indent=4)
 
+    os.system("pwd")
     # Add and commit changes
     os.system("git add .")
-    commit_message = "Updated AWS configurations"
+    commit_message = "AWS IAM commit from lambda"
     os.system(f"git commit -m '{commit_message}'")
 
     # Push changes
     os.system("git push origin main")
     os.chdir("..")
-    os.system("rm -rf cloned_repo")
+    print(f"Removing {local_repo}")
+    os.system(f"rm -rf {local_repo}")
 
     return {
         'statusCode': 200,

@@ -39,8 +39,8 @@ def handler(event, context):
     os.chdir(f"{local_repo}")
 
     # Set Git user.name and user.email
-    os.system(f"git config user.name abcd")
-    os.system(f"git config user.email abcd@gmail.com")
+    os.system(f"git config user.name {github_username}")
+    os.system(f"git config user.email {github_username}@notexist.com")
 
     # Remove existing folders
     folders_to_remove = ["roles", "policies", "scps"]

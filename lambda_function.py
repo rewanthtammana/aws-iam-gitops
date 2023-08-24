@@ -88,6 +88,3 @@ def handler(event, context):
         'statusCode': 200,
         'body': json.dumps("Successful. Check your Github! https://github.com/{0}".format("/".join([github_username, github_repo_name])))
     }
-
-# Uncomment the next line to test the function locally
-# handler(None, None)

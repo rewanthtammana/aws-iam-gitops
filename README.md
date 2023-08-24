@@ -15,9 +15,9 @@ This requires certain set of things
 ```bash
 # Change environment variables (MUST/MANDATORY)
 # Make sure TF_VAR_GITHUB_REPO exists on your GitHub
-export TF_VAR_GITHUB_TOKEN=
 export TF_VAR_GITHUB_USERNAME=rewanthtammana
 export TF_VAR_GITHUB_REPO=testaws
+export TF_VAR_GITHUB_TOKEN=
 
 # Change environment variables (Optional)
 export TF_VAR_ECR_REPO_NAME=aws-iam-gitops

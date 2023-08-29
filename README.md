@@ -1,10 +1,12 @@
 # aws-iam-gitops
 
-![8649040a-fd74-46b5-9ad3-16fe468db6c1](https://github.com/rewanthtammana/aws-iam-gitops/assets/22347290/53c2d42e-f0a1-4065-8065-944aba13b31d)
+![8649040a-fd74-46b5-9ad3-16fe468db6c1](https://github.com/rewanthtammana/aws-iam-gitops/assets/22347290/ec558297-34ba-4bf8-a2c3-cfdd111d1582)
+
 
 ## Goal
 
-![49ab7036-63eb-4677-bc21-21b45f19706a](https://github.com/rewanthtammana/aws-iam-gitops/assets/22347290/96ad8af5-569f-41dc-b8a1-fd31016da6ab)
+![49ab7036-63eb-4677-bc21-21b45f19706a](https://github.com/rewanthtammana/aws-iam-gitops/assets/22347290/d3428b8f-4d26-4306-952b-4d4724d0e387)
+
 
 To achive the goal, we require certain set privileges.
 

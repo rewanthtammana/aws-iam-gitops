@@ -40,7 +40,7 @@ To achive the goal, we require certain set privileges.
   export TF_VAR_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
   export TF_VAR_REGION=us-east-1
   export TF_VAR_ROLE_NAME=${TF_VAR_RANDOM_PREFIX}-lambda-role-${TF_VAR_RANDOM_SUFFIX}
-  export TF_VAR_IMAGE=${TF_VAR_ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/${TF_VAR_ECR_REPO_NAME}:${TF_VAR_ECR_REPO_TAG}
+  export TF_VAR_IMAGE=${TF_VAR_ACCOUNT_ID}.dkr.ecr.${TF_VAR_REGION}.amazonaws.com/${TF_VAR_ECR_REPO_NAME}:${TF_VAR_ECR_REPO_TAG}
   export TF_VAR_LAMBDA_FUNCTION_NAME=${TF_VAR_RANDOM_PREFIX}-${TF_VAR_RANDOM_SUFFIX}
   export TF_VAR_POLICY_NAME=${TF_VAR_RANDOM_PREFIX}-lambda-permissions-${TF_VAR_RANDOM_SUFFIX}
   export TF_VAR_LAMBDA_TIMEOUT=120

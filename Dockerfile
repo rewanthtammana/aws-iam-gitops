@@ -16,7 +16,7 @@ RUN sed -i "s/GITHUB_TOKEN/$GITHUB_TOKEN/g" ${LAMBDA_TASK_ROOT}/lambda_function.
 # Install the specified packages
 RUN pip install -r requirements.txt
 
-RUN yum update && yum -y install git
+RUN yum update -y && yum -y install git
 
 # Set the CMD to your handler (could also be done as a parameter override outside of the Dockerfile)
 CMD [ "lambda_function.handler" ]
